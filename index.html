@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NKCheat - Hệ Thống Bán Key & Mod Game Tự Động 24/7</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        zalo: {
+                            blue: '#0068ff',
+                            green: '#00b14f'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-border:hover {
+            border-color: rgba(0, 104, 255, 0.55);
+            box-shadow: 0 8px 30px -10px rgba(0, 104, 255, 0.3);
+        }
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-40 glass-card border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+            <!-- Brand Logo: NKCheat -->
+            <div onclick="switchTab('shop')" class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0068ff] to-[#00b14f] flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-shield-virus text-white text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                            NKCheat
+                        </span>
+                        <span class="hidden sm:inline-block text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            AUTO KEY 24/7
+                        </span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 hidden sm:block">Hệ thống bán Key & Mod tự động uy tín</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden md:flex items-center gap-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
+                <button onclick="switchTab('shop')" id="nav-shop" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-[#0068ff] text-white shadow-sm flex items-center gap-1.5">
+                    <i class="fa-solid fa-store"></i>Cửa Hàng
+                </button>
+                <button onclick="switchTab('topup')" id="nav-topup" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-qrcode text-[#00b14f]"></i>Nạp QR ZaloPay
+                </button>
+                <button onclick="switchTab('history')" id="nav-history" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-key text-amber-400"></i>Kho Key Đã Mua
+                    <span id="history-count-badge" class="px-1.5 py-0.2 text-xs rounded-full bg-slate-800 text-blue-400 border border-slate-700">0</span>
+                </button>
+                <button onclick="openAdminModal()" class="px-4 py-2 rounded-lg text-sm font-semibold text-emerald-300 hover:bg-emerald-500/15 hover:text-emerald-200 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-boxes-stacked"></i>+ Thêm Kho & Nạp Key
+                </button>
+            </nav>
+
+            <!-- User Balance & Quick ZaloPay Topup -->
+            <div class="flex items-center gap-2.5">
+                <div class="flex items-center bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 gap-2.5">
+                    <div class="text-right">
+                        <div class="text-[10px] text-slate-400 uppercase font-semibold leading-none">Số dư hiện tại</div>
+                        <div id="user-balance" class="text-sm sm:text-base font-extrabold text-emerald-400 leading-tight mt-0.5">0đ</div>
+                    </div>
+                    <button onclick="switchTab('topup')" title="Nạp QR ZaloPay ngay" class="w-8 h-8 rounded-lg bg-gradient-to-r from-[#0068ff] to-[#00b14f] hover:opacity-90 text-white font-bold flex items-center justify-center transition shadow-md">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Admin Button -->
+                <button onclick="openAdminModal()" title="Quản lý Kho & Đưa Key vào sản phẩm" class="md:hidden w-10 h-10 rounded-xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Sub Navigation Bar -->
+        <div class="md:hidden flex items-center justify-around border-t border-slate-800/80 bg-slate-900/95 px-2 py-1.5 gap-1">
+            <button onclick="switchTab('shop')" id="m-nav-shop" class="flex-1 py-1.5 rounded-lg text-xs font-semibold text-center bg-[#0068ff] text-white">
+                <i class="fa-solid fa-store mr-1"></i>Cửa Hàng
+            </button>
+            <button onclick="switchTab('topup')" id="m-nav-topup" class="flex-1 py-1.5 rounded-lg text-xs font-semibold text-center text-slate-300">
+                <i class="fa-solid fa-qrcode mr-1 text-[#00b14f]"></i>Nạp ZaloPay
+            </button>
+            <button onclick="switchTab('history')" id="m-nav-history" class="flex-1 py-1.5 rounded-lg text-xs font-semibold text-center text-slate-300">
+                <i class="fa-solid fa-key mr-1 text-amber-400"></i>Key Đã Mua (<span id="m-history-count">0</span>)
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- SYSTEM ANNOUNCEMENT BANNER -->
+        <div class="glass-card rounded-2xl p-4 sm:p-5 border-l-4 border-l-[#0068ff] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 text-xs font-bold uppercase rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        <i class="fa-solid fa-bullhorn mr-1"></i>Thông báo NKCheat
+                    </span>
+                    <span class="text-xs text-slate-400">Hệ thống tự động 100%</span>
+                </div>
+                <p class="text-sm text-slate-200 leading-relaxed">
+                    Chào mừng đến với <strong class="text-blue-400">NKCheat</strong>! Hỗ trợ <strong>Nạp QR ZaloPay tự động 24/7</strong>. Ngay sau khi bấm mua sản phẩm, <strong>mã Key sẽ được xuất trực tiếp tại khung Nhận Key bên dưới</strong>.
+                </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 shrink-0 w-full md:w-auto">
+                <button onclick="switchTab('topup')" class="flex-1 md:flex-initial px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#0068ff] to-[#00b14f] hover:opacity-95 text-white font-bold text-xs sm:text-sm shadow-lg shadow-blue-500/20 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-qrcode"></i> Nạp QR ZaloPay
+                </button>
+                <button onclick="openAdminModal()" class="flex-1 md:flex-initial px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-key"></i> Nạp Key / Thêm Số Lượng SP
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 1: SHOP & INSTANT KEY DELIVERY BOX ==================== -->
+        <section id="section-shop" class="space-y-6">
+
+            <!-- DEDICATED KEY DELIVERY BOX ON MAIN PAGE ("CHỖ ĐƯA KEY SAU KHI MUA") -->
+            <div id="instant-key-delivery-box" class="glass-card rounded-2xl p-4 sm:p-5 border border-emerald-500/40 bg-gradient-to-r from-slate-900/95 via-emerald-950/20 to-slate-900/95">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-key text-lg"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="text-sm sm:text-base font-extrabold text-white">KHU VỰC NHẬN KEY SAU KHI MUA (NKCHEAT)</h2>
+                                <span id="delivered-status-badge" class="px-2 py-0.5 text-[10px] font-bold uppercase rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                    Tự động trả Key
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-400">
+                                Sau khi bấm <strong>Mua Ngay</strong> ở bất kỳ sản phẩm nào bên dưới, mã Key của bạn sẽ hiển thị ngay tại đây để Copy.
+                            </p>
+                        </div>
+                    </div>
+                    <div id="instant-key-actions" class="hidden flex items-center gap-2 self-start sm:self-center">
+                        <button onclick="copyAllCurrentKeys()" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i> Copy Tất Cả Key
+                        </button>
+                        <button onclick="downloadCurrentKeysTxt()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-download"></i> Tải File .TXT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Key Display Content -->
+                <div id="instant-key-content" class="mt-3">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Filter & Search Bar -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar" id="category-filters">
+                    <button onclick="filterCategory('all')" data-cat="all" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#0068ff] text-white whitespace-nowrap transition">
+                        <i class="fa-solid fa-border-all mr-1.5"></i>Tất Cả Sản Phẩm
+                    </button>
+                    <button onclick="filterCategory('Key Ngắn Hạn')" data-cat="Key Ngắn Hạn" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/90 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap transition">
+                        <i class="fa-solid fa-clock mr-1.5 text-blue-400"></i>Key Ngày / Tuần
+                    </button>
+                    <button onclick="filterCategory('Key Dài Hạn')" data-cat="Key Dài Hạn" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/90 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap transition">
+                        <i class="fa-solid fa-crown mr-1.5 text-amber-400"></i>Key Tháng / Vĩnh Viễn
+                    </button>
+                    <button onclick="filterCategory('Gói Bypass VIP')" data-cat="Gói Bypass VIP" class="cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/90 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap transition">
+                        <i class="fa-solid fa-shield-halved mr-1.5 text-emerald-400"></i>Mod Anti-Ban / Bypass
+                    </button>
+                </div>
+
+                <div class="relative w-full lg:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input
+                        type="text"
+                        id="search-input"
+                        oninput="renderProducts()"
+                        placeholder="Tìm kiếm gói Key NKCheat..."
+                        class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition"
+                    >
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Dynamically rendered by JS -->
+            </div>
+        </section>
+
+        <!-- ==================== TAB 2: ZALOPAY QR AUTO TOP-UP SECTION ==================== -->
+        <section id="section-topup" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#0068ff] to-[#00b14f] flex items-center justify-center text-white text-xl font-black shadow-lg shadow-blue-500/20">
+                            Z
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
+                                Nạp Tiền QR ZaloPay Tự Động 24/7
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                                Quét mã QR bằng ứng dụng <strong>ZaloPay</strong> hoặc <strong>Ngân hàng bất kỳ</strong>, cộng tiền tự động sau vài giây!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Top-up Method Switcher -->
+                    <div class="flex bg-slate-900 p-1 rounded-xl border border-slate-800 self-start">
+                        <button onclick="switchTopupMethod('zalopay')" id="btn-method-zalopay" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#0068ff] text-white transition">
+                            <i class="fa-solid fa-qrcode mr-1.5"></i>QR ZaloPay Tự Động
+                        </button>
+                        <button onclick="switchTopupMethod('card')" id="btn-method-card" class="px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition">
+                            <i class="fa-solid fa-sim-card mr-1.5"></i>Nạp Thẻ Cào
+                        </button>
+                    </div>
+                </div>
+
+                <!-- METHOD 1: ZALOPAY QR TRANSFER -->
+                <div id="topup-zalopay-panel" class="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-6">
+                    <!-- Left: Amount Selection & ZaloPay Wallet Details -->
+                    <div class="lg:col-span-7 space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2.5">
+                                1. Chọn hoặc nhập số tiền cần nạp qua ZaloPay (VNĐ)
+                            </label>
+                            <div class="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-3">
+                                <button onclick="setTopupAmount(10000)" class="amt-btn py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition">10.000đ</button>
+                                <button onclick="setTopupAmount(20000)" class="amt-btn py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition">20.000đ</button>
+                                <button onclick="setTopupAmount(50000)" class="amt-btn py-2 px-3 rounded-xl bg-blue-500/20 border border-blue-500 text-xs font-bold text-blue-300 transition">50.000đ</button>
+                                <button onclick="setTopupAmount(100000)" class="amt-btn py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition">100.000đ</button>
+                                <button onclick="setTopupAmount(200000)" class="amt-btn py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition">200.000đ</button>
+                                <button onclick="setTopupAmount(500000)" class="amt-btn py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-slate-200 transition">500.000đ</button>
+                            </div>
+                            <div class="relative">
+                                <input
+                                    type="number"
+                                    id="topup-amount-input"
+                                    value="50000"
+                                    min="10000"
+                                    step="1000"
+                                    oninput="updateZaloPayQR()"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-bold text-base focus:outline-none focus:border-blue-500"
+                                >
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">VNĐ</span>
+                            </div>
+                        </div>
+
+                        <!-- ZaloPay Info Box -->
+                        <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 space-y-3">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-slate-400">Cổng thanh toán:</span>
+                                <span class="font-extrabold text-white flex items-center gap-1.5">
+                                    <span class="px-2 py-0.5 rounded bg-[#0068ff] text-white text-xs">Zalo</span>
+                                    <span class="px-2 py-0.5 rounded bg-[#00b14f] text-white text-xs -ml-1">Pay</span>
+                                    <span>QR Đa Năng</span>
+                                </span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-slate-400">Số điện thoại / Ví ZaloPay:</span>
+                                <div class="flex items-center gap-2">
+                                    <span id="zalopay-phone-display" class="font-mono font-bold text-blue-400">0988.999.888</span>
+                                    <button onclick="copyText(zalopayConfig.phone, 'Đã sao chép SĐT ví ZaloPay!')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs text-slate-200">
+                                        <i class="fa-regular fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-slate-400">Chủ tài khoản ZaloPay:</span>
+                                <span id="zalopay-owner-display" class="font-bold text-white">NKCHEAT STORE</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm pt-2 border-t border-slate-800">
+                                <span class="text-slate-400">Lời nhắn chuyển tiền (Bắt buộc):</span>
+                                <div class="flex items-center gap-2">
+                                    <span id="transfer-memo" class="font-mono font-extrabold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/30">NKCHEAT88</span>
+                                    <button onclick="copyMemo()" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Simulated Auto Webhook Button -->
+                        <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div class="space-y-1 text-center sm:text-left">
+                                <div class="text-xs font-bold uppercase text-emerald-400 flex items-center justify-center sm:justify-start gap-1.5">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                    Tự động kiểm tra giao dịch ZaloPay
+                                </div>
+                                <p class="text-xs text-slate-300">
+                                    Sau khi quét mã QR ZaloPay (hoặc bấm để test nạp tự động), hệ thống sẽ cộng tiền ngay lập tức.
+                                </p>
+                            </div>
+                            <button
+                                id="btn-simulate-bank"
+                                onclick="simulateAutoZaloPayTopup()"
+                                class="w-full sm:w-auto shrink-0 px-5 py-3 rounded-xl bg-gradient-to-r from-[#0068ff] to-[#00b14f] hover:opacity-95 text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-blue-500/20 transition flex items-center justify-center gap-2"
+                            >
+                                <i class="fa-solid fa-circle-check"></i> Xác Nhận Đã Chuyển ZaloPay
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: ZaloPay QR Code Frame -->
+                    <div class="lg:col-span-5 flex flex-col items-center justify-center bg-slate-900/90 rounded-2xl p-5 border border-slate-800">
+                        <!-- ZaloPay Styled Card Frame -->
+                        <div class="bg-white rounded-2xl p-4 shadow-2xl max-w-[260px] w-full text-center border-2 border-[#0068ff]">
+                            <div class="flex items-center justify-center gap-1 mb-2 pb-2 border-b border-slate-100">
+                                <span class="font-black text-lg tracking-tight text-[#0068ff]">Zalo</span>
+                                <span class="font-black text-lg tracking-tight text-[#00b14f]">Pay</span>
+                                <span class="ml-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">QR NẠP TỰ ĐỘNG</span>
+                            </div>
+                            <div class="relative bg-slate-50 p-2 rounded-xl border border-slate-200">
+                                <img
+                                    id="zalopay-qr-img"
+                                    src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=ZALOPAY_NKCHEAT_50000"
+                                    alt="Mã QR ZaloPay NKCheat"
+                                    class="w-full h-auto rounded-lg mx-auto"
+                                >
+                            </div>
+                            <div class="mt-2.5 text-slate-800">
+                                <div id="qr-amount-display" class="font-extrabold text-sm text-[#0068ff]">50.000 VNĐ</div>
+                                <div class="text-[11px] text-slate-500">Nội dung: <strong id="qr-memo-label" class="text-slate-900">NKCHEAT88</strong></div>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-400 text-center mt-3 max-w-xs">
+                            Mở App <strong>ZaloPay</strong> hoặc <strong>Zalo / Ngân hàng</strong> để quét mã QR trên.
+                        </p>
+
+                        <!-- Allow Shop Owner to Upload/Set Their Own Real ZaloPay QR Image -->
+                        <button onclick="toggleCustomQRConfig()" class="mt-2 text-[11px] text-blue-400 hover:underline flex items-center gap-1">
+                            <i class="fa-solid fa-gear"></i> Cài đặt ảnh QR ZaloPay / SĐT của chủ shop
+                        </button>
+                        <div id="custom-qr-config-box" class="hidden w-full mt-3 p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                            <input type="text" id="cfg-zalo-phone" placeholder="Số điện thoại ZaloPay (VD: 0988999888)" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white">
+                            <input type="text" id="cfg-zalo-owner" placeholder="Tên chủ ví (VD: NGUYEN VAN A)" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white">
+                            <input type="text" id="cfg-zalo-qr-url" placeholder="Dán link ảnh QR ZaloPay thật (để trống = tạo tự động)" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white">
+                            <div class="flex items-center gap-2">
+                                <label class="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-center text-xs text-slate-200 cursor-pointer border border-slate-700">
+                                    <i class="fa-solid fa-upload mr-1"></i>Tải ảnh QR từ máy
+                                    <input type="file" accept="image/*" onchange="uploadCustomQRFile(event)" class="hidden">
+                                </label>
+                                <button onclick="saveZaloPayConfig()" class="px-3 py-1.5 rounded-lg bg-[#0068ff] text-white font-bold text-xs">
+                                    Lưu QR
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- METHOD 2: SCRATCH CARD AUTO TOPUP -->
+                <div id="topup-card-panel" class="hidden pt-6 max-w-2xl mx-auto space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">Loại thẻ cào</label>
+                            <select id="card-telco" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                                <option value="VIETTEL">Viettel (Tự động 100%)</option>
+                                <option value="VINAPHONE">Vinaphone</option>
+                                <option value="MOBIFONE">Mobifone</option>
+                                <option value="ZING">Thẻ Zing</option>
+                                <option value="GARENA">Thẻ Garena</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">Mệnh giá thẻ</label>
+                            <select id="card-amount" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                                <option value="10000">10.000đ (Nhận 100%)</option>
+                                <option value="20000">20.000đ (Nhận 100%)</option>
+                                <option value="50000" selected>50.000đ (Nhận 100%)</option>
+                                <option value="100000">100.000đ (Nhận 100%)</option>
+                                <option value="200000">200.000đ (Nhận 100%)</option>
+                                <option value="500000">500.000đ (Nhận 100%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">Số Seri thẻ</label>
+                            <input type="text" id="card-serial" placeholder="Nhập số seri (VD: 10004938291)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-300 mb-1.5">Mã thẻ (PIN)</label>
+                            <input type="text" id="card-pin" placeholder="Nhập mã thẻ (VD: 492819482910)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <button
+                        id="btn-submit-card"
+                        onclick="submitCardTopup()"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-[#0068ff] to-[#00b14f] hover:opacity-95 text-white font-extrabold text-sm shadow-lg shadow-blue-500/20 transition"
+                    >
+                        <i class="fa-solid fa-paper-plane mr-1.5"></i> Nạp Thẻ Tự Động Ngay
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 3: PURCHASED KEYS HISTORY SECTION ==================== -->
+        <section id="section-history" class="hidden space-y-6">
+            <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+                    <div>
+                        <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-key text-amber-400"></i> Kho Lưu Trữ Key Đã Mua (NKCheat)
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-0.5">
+                            Toàn bộ mã Key xuất ra sau khi bạn mua sản phẩm đều được lưu lại tại đây để tra cứu bất cứ lúc nào.
+                        </p>
+                    </div>
+                    <button onclick="switchTab('shop')" class="self-start px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-blue-400 border border-slate-700 transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Quay lại Cửa Hàng
+                    </button>
+                </div>
+
+                <div id="order-history-list" class="mt-4 space-y-3">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== MODAL 1: DELIVERED KEYS POPUP AFTER PURCHASE ==================== -->
+    <div id="purchase-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-lg rounded-2xl border border-emerald-500/50 p-6 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-extrabold text-white">Nhận Key NKCheat Thành Công!</h3>
+                        <p id="modal-purchase-subtitle" class="text-xs text-slate-400">Hệ thống đã trả Key tự động cho đơn hàng của bạn</p>
+                    </div>
+                </div>
+                <button onclick="closePurchaseModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="space-y-2">
+                <div class="flex items-center justify-between text-xs font-bold uppercase text-slate-300">
+                    <span>Mã Key kích hoạt của bạn:</span>
+                    <button onclick="copyAllCurrentKeys()" class="text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                        <i class="fa-regular fa-copy"></i> Sao chép tất cả
+                    </button>
+                </div>
+                <div id="modal-keys-container" class="max-h-60 overflow-y-auto space-y-2 bg-slate-950/90 p-3 rounded-xl border border-slate-800">
+                    <!-- Individual key rows rendered here -->
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5 pt-2">
+                <button onclick="copyAllCurrentKeys()" class="flex-1 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm transition">
+                    <i class="fa-solid fa-copy mr-1.5"></i> Sao Chép Tất Cả Key
+                </button>
+                <button onclick="downloadCurrentKeysTxt()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 transition">
+                    <i class="fa-solid fa-download mr-1"></i> Tải .TXT
+                </button>
+                <button onclick="closePurchaseModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL 2: ADMIN STOCK & KEY POOL MANAGER ==================== -->
+    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="glass-card w-full max-w-3xl max-h-[90vh] flex flex-col rounded-2xl border border-blue-500/40 shadow-2xl overflow-hidden">
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-900/90">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/40 text-blue-400 flex items-center justify-center">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-extrabold text-white">Quản Lý Kho & Đưa Key Vào Sản Phẩm (NKCheat)</h3>
+                        <p class="text-xs text-slate-400">Thêm số lượng tồn kho hoặc dán sẵn danh sách Key để tự động trả cho khách khi mua</p>
+                    </div>
+                </div>
+                <button onclick="closeAdminModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-5 overflow-y-auto space-y-6 flex-1">
+                <!-- Part 0: Quick Paste Keys into Any Product (Chỗ nạp sẵn Key để trả cho khách) -->
+                <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-2xl p-4 space-y-3">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-key"></i> 1. Đưa Key Vào Kho Sản Phẩm (Trả Key Tự Động Khi Khách Mua)
+                    </h4>
+                    <p class="text-xs text-slate-300">
+                        Chọn sản phẩm và dán danh sách Key của bạn (mỗi dòng 1 Key). Khi khách mua sản phẩm đó, hệ thống sẽ lấy đúng Key bạn đã nạp để đưa cho khách!
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-1">
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Chọn sản phẩm cần nạp Key</label>
+                            <select id="admin-keypool-product" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-500">
+                                <!-- Populated via JS -->
+                            </select>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Dán danh sách Key (Mỗi dòng 1 mã Key)</label>
+                            <textarea
+                                id="admin-keypool-textarea"
+                                rows="3"
+                                placeholder="NKCHEAT-VIP-1111-2222&#10;NKCHEAT-VIP-3333-4444&#10;NKCHEAT-VIP-5555-6666"
+                                class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-emerald-300 focus:outline-none focus:border-emerald-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <button onclick="addKeysToProductPool()" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm transition">
+                        <i class="fa-solid fa-upload mr-1.5"></i> Nạp Key Vào Kho & Tự Động Cộng Số Lượng
+                    </button>
+                </div>
+
+                <!-- Part 1: Quick Update Stock of Existing Products -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-xs font-extrabold uppercase tracking-wider text-blue-400">
+                            <i class="fa-solid fa-layer-group mr-1.5"></i>2. Chỉnh Sửa Nhanh Số Lượng Sản Phẩm Hiện Có
+                        </h4>
+                        <button onclick="resetDefaultShopData()" class="text-xs text-rose-400 hover:text-rose-300 underline">
+                            Khôi phục mặc định
+                        </button>
+                    </div>
+                    <div id="admin-product-list" class="space-y-2.5">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Part 2: Add Brand New Product -->
+                <div class="pt-4 border-t border-slate-800 space-y-4">
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-amber-400">
+                        <i class="fa-solid fa-plus-circle mr-1.5"></i>3. Thêm Sản Phẩm Mới Lên NKCheat
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Tên sản phẩm *</label>
+                            <input type="text" id="new-prod-name" placeholder="VD: Key NKCheat VIP - 14 Ngày" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Danh mục</label>
+                            <select id="new-prod-cat" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                                <option value="Key Ngắn Hạn">Key Ngày / Tuần</option>
+                                <option value="Key Dài Hạn">Key Tháng / Vĩnh Viễn</option>
+                                <option value="Gói Bypass VIP">Mod Anti-Ban / Bypass</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Giá bán (VNĐ) *</label>
+                            <input type="number" id="new-prod-price" value="25000" min="1000" step="1000" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Số lượng trong kho *</label>
+                            <input type="number" id="new-prod-stock" value="50" min="1" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Mô tả ngắn / Tính năng</label>
+                            <input type="text" id="new-prod-desc" placeholder="VD: Full tính năng ESP, Aimbot, Anti-Ban an toàn 100%, nhận key ngay sau khi mua" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <button onclick="addNewProduct()" class="w-full py-2.5 rounded-xl bg-[#0068ff] hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/25 transition">
+                        <i class="fa-solid fa-plus mr-1.5"></i> Tạo Sản Phẩm Mới
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 bg-slate-950/60 py-5 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-white">NKCHEAT.SHOP</span>
+                <span>— Hệ thống Nạp QR ZaloPay & Trả Key Tự Động 24/7</span>
+            </div>
+            <div>
+                Uy tín • Tự động • Nhận Key ngay sau khi thanh toán
+            </div>
+        </div>
+    </footer>
+
+    <!-- APPLICATION LOGIC -->
+    <script>
+        // --- DEFAULT PRODUCTS FOR NKCHEAT ---
+        const DEFAULT_PRODUCTS = [
+            {
+                id: 'nk-1d',
+                name: 'Key NKCheat VIP - 1 Ngày (24H)',
+                category: 'Key Ngắn Hạn',
+                price: 15000,
+                stock: 120,
+                badge: 'Bán chạy',
+                desc: 'Full chức năng Mod VIP NKCheat trong 24 giờ, tự động xuất Key ngay sau khi bấm mua.',
+                features: ['Thời hạn 24 Giờ tính từ lúc nhập Key', 'Tích hợp Anti-Ban an toàn', 'Hỗ trợ Android / iOS / Giả lập PC'],
+                keyPool: []
+            },
+            {
+                id: 'nk-7d',
+                name: 'Key NKCheat VIP - 7 Ngày (1 Tuần)',
+                category: 'Key Ngắn Hạn',
+                price: 50000,
+                stock: 85,
+                badge: 'Tiết kiệm',
+                desc: 'Gói tuần siêu ưu đãi cho game thủ leo rank, ổn định, xuất mã Key tự động 24/7.',
+                features: ['Thời hạn sử dụng 7 Ngày', 'Tự động cập nhật phiên bản mới', 'Hỗ trợ đổi thiết bị miễn phí'],
+                keyPool: []
+            },
+            {
+                id: 'nk-30d',
+                name: 'Key NKCheat VIP - 30 Ngày (1 Tháng)',
+                category: 'Key Dài Hạn',
+                price: 150000,
+                stock: 60,
+                badge: 'HOT VIP',
+                desc: 'Gói 30 ngày tối ưu chi phí, kết nối máy chủ VIP tốc độ cao và bảo hành trọn đời gói.',
+                features: ['Sử dụng trọn vẹn 30 Ngày', 'Server riêng không giật lag', 'Bảo hành 1 đổi 1 tự động'],
+                keyPool: []
+            },
+            {
+                id: 'nk-lifetime',
+                name: 'Key NKCheat Vĩnh Viễn (Lifetime)',
+                category: 'Key Dài Hạn',
+                price: 350000,
+                stock: 25,
+                badge: 'Vĩnh viễn',
+                desc: 'Mua 1 lần sử dụng vĩnh viễn mọi bản cập nhật của NKCheat không tốn thêm phí.',
+                features: ['Kích hoạt Vĩnh Viễn không giới hạn', 'Mở khóa toàn bộ tính năng VIP', 'Hỗ trợ kỹ thuật ưu tiên 1-1'],
+                keyPool: []
+            },
+            {
+                id: 'nk-bypass',
+                name: 'Gói NKCheat Pro + Bypass Anti-Ban',
+                category: 'Gói Bypass VIP',
+                price: 80000,
+                stock: 45,
+                badge: 'An toàn 100%',
+                desc: 'Bản Mod chuyên sâu kèm Bypass vượt kiểm tra bảo mật, bảo vệ tài khoản chính tuyệt đối.',
+                features: ['Bypass chống phát hiện thế hệ mới', 'Chơi mượt trên tài khoản chính', 'Nhận Key & Link tải ngay sau khi mua'],
+                keyPool: []
+            },
+            {
+                id: 'nk-combo5',
+                name: 'Combo 5 Key NKCheat Ngày (Giá Sỉ)',
+                category: 'Key Ngắn Hạn',
+                price: 60000,
+                stock: 90,
+                badge: 'Giá sỉ',
+                desc: 'Mua 1 lần nhận ngay 5 mã Key NKCheat riêng biệt, chưa kích hoạt chưa tính thời gian.',
+                features: ['Nhận ngay mã kích hoạt tự động', 'Phù hợp cho nhóm bạn hoặc CTV', 'Tiết kiệm hơn 20% chi phí'],
+                keyPool: []
+            }
+        ];
+
+        // --- APPLICATION STATE ---
+        let balance = 0;
+        let products = [];
+        let orders = [];
+        let currentCategory = 'all';
+        let selectedQuantities = {};
+        let lastPurchasedKeys = [];
+        let lastPurchasedProductName = '';
+        let transferMemoCode = 'NKCHEAT' + Math.floor(100 + Math.random() * 900);
+
+        let zalopayConfig = {
+            phone: '0988.999.888',
+            owner: 'NKCHEAT STORE',
+            customQrUrl: ''
+        };
+
+        // --- INITIALIZATION ---
+        window.onload = function () {
+            loadStateFromStorage();
+            document.getElementById('transfer-memo').textContent = transferMemoCode;
+            document.getElementById('qr-memo-label').textContent = transferMemoCode;
+            applyZaloPayConfigUI();
+            updateBalanceUI();
+            renderProducts();
+            renderInstantKeyBox();
+            renderOrderHistory();
+            updateZaloPayQR();
+        };
+
+        function loadStateFromStorage() {
+            try {
+                const savedBalance = localStorage.getItem('nkcheat_balance');
+                balance = savedBalance !== null ? parseInt(savedBalance, 10) : 50000; // Tặng sẵn 50.000đ test mua key
+
+                const savedProducts = localStorage.getItem('nkcheat_products');
+                products = savedProducts ? JSON.parse(savedProducts) : JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+
+                const savedOrders = localStorage.getItem('nkcheat_orders');
+                orders = savedOrders ? JSON.parse(savedOrders) : [];
+                if (orders.length > 0) {
+                    lastPurchasedKeys = orders[0].keys || [];
+                    lastPurchasedProductName = orders[0].productName || '';
+                }
+
+                const savedZalo = localStorage.getItem('nkcheat_zalopay_cfg');
+                if (savedZalo) {
+                    zalopayConfig = JSON.parse(savedZalo);
+                }
+            } catch (e) {
+                balance = 50000;
+                products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+                orders = [];
+            }
+        }
+
+        function saveStateToStorage() {
+            try {
+                localStorage.setItem('nkcheat_balance', balance.toString());
+                localStorage.setItem('nkcheat_products', JSON.stringify(products));
+                localStorage.setItem('nkcheat_orders', JSON.stringify(orders));
+                localStorage.setItem('nkcheat_zalopay_cfg', JSON.stringify(zalopayConfig));
+            } catch (e) {
+                console.error('Storage error:', e);
+            }
+        }
+
+        function formatVND(amount) {
+            return Number(amount).toLocaleString('vi-VN') + 'đ';
+        }
+
+        function updateBalanceUI() {
+            document.getElementById('user-balance').textContent = formatVND(balance);
+            document.getElementById('history-count-badge').textContent = orders.length;
+            document.getElementById('m-history-count').textContent = orders.length;
+        }
+
+        // --- TAB NAVIGATION ---
+        function switchTab(tabName) {
+            const sections = ['shop', 'topup', 'history'];
+            sections.forEach(s => {
+                const el = document.getElementById('section-' + s);
+                if (el) el.classList.toggle('hidden', s !== tabName);
+
+                const navBtn = document.getElementById('nav-' + s);
+                if (navBtn) {
+                    if (s === tabName) {
+                        navBtn.className = 'nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-[#0068ff] text-white shadow-sm flex items-center gap-1.5';
+                    } else {
+                        navBtn.className = 'nav-btn px-4 py-2 rounded-lg text-sm font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
+                    }
+                }
+
+                const mNavBtn = document.getElementById('m-nav-' + s);
+                if (mNavBtn) {
+                    if (s === tabName) {
+                        mNavBtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold text-center bg-[#0068ff] text-white';
+                    } else {
+                        mNavBtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold text-center text-slate-300';
+                    }
+                }
+            });
+
+            if (tabName === 'history') {
+                renderOrderHistory();
+            }
+        }
+
+        // --- RENDER INSTANT KEY DELIVERY BOX ("CHỖ ĐƯA KEY SAU KHI MUA") ---
+        function renderInstantKeyBox() {
+            const contentEl = document.getElementById('instant-key-content');
+            const actionsEl = document.getElementById('instant-key-actions');
+
+            if (!lastPurchasedKeys || lastPurchasedKeys.length === 0) {
+                actionsEl.classList.add('hidden');
+                contentEl.innerHTML = `
+                    <div class="bg-slate-950/70 border border-dashed border-slate-800 rounded-xl p-4 text-center flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-slate-400">
+                        <i class="fa-solid fa-circle-info text-blue-400"></i>
+                        <span>Chưa có giao dịch mới. Hãy chọn số lượng và bấm <strong>"Mua Ngay"</strong> ở sản phẩm bên dưới để nhận Key tại đây!</span>
+                    </div>
+                `;
+                return;
+            }
+
+            actionsEl.classList.remove('hidden');
+            contentEl.innerHTML = `
+                <div class="space-y-2">
+                    <div class="text-xs font-semibold text-emerald-400 flex items-center justify-between">
+                        <span><i class="fa-solid fa-check-circle mr-1"></i>Đã xuất ${lastPurchasedKeys.length} mã Key cho gói: <strong class="text-white">${lastPurchasedProductName}</strong></span>
+                        <button onclick="switchTab('history')" class="text-blue-400 hover:underline">Xem toàn bộ lịch sử (${orders.length})</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-44 overflow-y-auto pr-1">
+                        ${lastPurchasedKeys.map((k, idx) => `
+                            <div class="flex items-center justify-between bg-slate-950 px-3.5 py-2.5 rounded-xl border border-emerald-500/30">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">KEY #${idx + 1}</span>
+                                    <span class="font-mono text-xs sm:text-sm font-extrabold text-emerald-400 truncate">${k}</span>
+                                </div>
+                                <button onclick="copyText('${k}', 'Đã sao chép Key #${idx + 1}: ${k}')" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 font-bold text-xs transition shrink-0">
+                                    <i class="fa-regular fa-copy mr-1"></i>Copy
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- CATEGORY FILTER ---
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === cat) {
+                    btn.className = 'cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#0068ff] text-white whitespace-nowrap transition';
+                } else {
+                    btn.className = 'cat-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/90 text-slate-300 hover:text-white border border-slate-700 whitespace-nowrap transition';
+                }
+            });
+            renderProducts();
+        }
+
+        // --- RENDER PRODUCT CARDS ---
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const searchQuery = (document.getElementById('search-input').value || '').trim().toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchCat = currentCategory === 'all' || p.category === currentCategory;
+                const matchSearch = p.name.toLowerCase().includes(searchQuery) || (p.desc || '').toLowerCase().includes(searchQuery);
+                return matchCat && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full glass-card rounded-2xl p-10 text-center space-y-3">
+                        <i class="fa-solid fa-box-open text-4xl text-slate-500"></i>
+                        <div class="text-base font-bold text-slate-300">Không tìm thấy sản phẩm phù hợp</div>
+                        <p class="text-xs text-slate-400">Bạn có thể thêm sản phẩm mới trong mục Quản Lý Kho.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(prod => {
+                const qty = selectedQuantities[prod.id] || 1;
+                const totalPrice = prod.price * qty;
+                const isOutOfStock = prod.stock <= 0;
+                const customKeyCount = (prod.keyPool && prod.keyPool.length) ? prod.keyPool.length : 0;
+
+                const featuresList = (prod.features && prod.features.length > 0)
+                    ? prod.features.map(f => `
+                        <li class="flex items-center gap-2 text-xs text-slate-300">
+                            <i class="fa-solid fa-circle-check text-[#00b14f] text-[11px]"></i>
+                            <span>${f}</span>
+                        </li>
+                    `).join('')
+                    : `<li class="flex items-center gap-2 text-xs text-slate-300">
+                            <i class="fa-solid fa-circle-check text-[#00b14f] text-[11px]"></i>
+                            <span>Giao key tự động 24/7 ngay sau khi bấm mua</span>
+                       </li>`;
+
+                return `
+                    <div class="glass-card glow-border rounded-2xl p-5 flex flex-col justify-between transition-all duration-200 relative overflow-hidden">
+                        <div>
+                            <!-- Top Badges & Quick Add Stock -->
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                                    <i class="fa-solid fa-bolt mr-1"></i>${prod.badge || 'Tự động'}
+                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold ${isOutOfStock ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'}">
+                                        Kho còn: ${prod.stock} ${customKeyCount > 0 ? `(${customKeyCount} Key nạp sẵn)` : ''}
+                                    </span>
+                                    <button
+                                        onclick="quickAddStock('${prod.id}', 10)"
+                                        title="Cộng nhanh +10 sản phẩm vào kho"
+                                        class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold transition"
+                                    >
+                                        +10 Kho
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Title & Description -->
+                            <h3 class="text-base sm:text-lg font-extrabold text-white leading-snug mb-1.5">
+                                ${prod.name}
+                            </h3>
+                            <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                                ${prod.desc || 'Sản phẩm chính hãng NKCheat, nhận Key tự động ngay sau khi mua.'}
+                            </p>
+
+                            <!-- Feature Bullets -->
+                            <ul class="space-y-1.5 mb-5 border-t border-slate-800/80 pt-3">
+                                ${featuresList}
+                            </ul>
+                        </div>
+
+                        <!-- Bottom Price, Quantity Selector & Buy Button -->
+                        <div class="pt-3 border-t border-slate-800 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-[11px] text-slate-400 block">Đơn giá</span>
+                                    <span class="text-lg font-extrabold text-blue-400">${formatVND(prod.price)}</span>
+                                </div>
+
+                                <!-- Quantity Picker (- / input / +) -->
+                                <div class="flex flex-col items-end">
+                                    <span class="text-[11px] text-slate-400 mb-1">Số lượng mua</span>
+                                    <div class="flex items-center bg-slate-900 rounded-xl border border-slate-700 p-0.5">
+                                        <button
+                                            onclick="changeBuyQty('${prod.id}', -1)"
+                                            class="w-8 h-8 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition"
+                                            ${isOutOfStock ? 'disabled' : ''}
+                                        >
+                                            <i class="fa-solid fa-minus text-xs"></i>
+                                        </button>
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            max="${Math.max(1, prod.stock)}"
+                                            value="${qty}"
+                                            onchange="setBuyQty('${prod.id}', this.value)"
+                                            class="w-11 text-center bg-transparent text-sm font-extrabold text-white focus:outline-none"
+                                            ${isOutOfStock ? 'disabled' : ''}
+                                        >
+                                        <button
+                                            onclick="changeBuyQty('${prod.id}', 1)"
+                                            class="w-8 h-8 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition"
+                                            ${isOutOfStock ? 'disabled' : ''}
+                                        >
+                                            <i class="fa-solid fa-plus text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buy Button -->
+                            <button
+                                onclick="buyProduct('${prod.id}')"
+                                ${isOutOfStock ? 'disabled' : ''}
+                                class="w-full py-3 rounded-xl font-extrabold text-sm transition flex items-center justify-center gap-2 ${
+                                    isOutOfStock
+                                        ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                                        : 'bg-gradient-to-r from-[#0068ff] to-[#00b14f] hover:opacity-95 text-white shadow-lg shadow-blue-500/20'
+                                }"
+                            >
+                                <i class="fa-solid ${isOutOfStock ? 'fa-ban' : 'fa-key'}"></i>
+                                ${isOutOfStock ? 'Hết Hàng (Bấm +10 Kho để thêm)' : `Mua & Nhận Key • ${formatVND(totalPrice)}`}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // --- QUANTITY CONTROLS FOR BUYING ---
+        function changeBuyQty(productId, delta) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod || prod.stock <= 0) return;
+            const current = selectedQuantities[productId] || 1;
+            let next = current + delta;
+            if (next < 1) next = 1;
+            if (next > prod.stock) {
+                next = prod.stock;
+                showToast(`Kho chỉ còn tối đa ${prod.stock} sản phẩm!`, 'info');
+            }
+            selectedQuantities[productId] = next;
+            renderProducts();
+        }
+
+        function setBuyQty(productId, val) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+            let parsed = parseInt(val, 10);
+            if (isNaN(parsed) || parsed < 1) parsed = 1;
+            if (parsed > prod.stock) {
+                parsed = Math.max(1, prod.stock);
+                showToast(`Đã điều chỉnh về số lượng tồn kho tối đa (${prod.stock})`, 'info');
+            }
+            selectedQuantities[productId] = parsed;
+            renderProducts();
+        }
+
+        function quickAddStock(productId, amount) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+            prod.stock += amount;
+            saveStateToStorage();
+            renderProducts();
+            showToast(`Đã thêm +${amount} vào kho "${prod.name}" (Hiện có: ${prod.stock})`, 'success');
+        }
+
+        // --- BUY PRODUCT & DELIVER KEYS (PULLS FROM OWNER'S KEY POOL FIRST, THEN AUTO-GENERATES) ---
+        function generateNKCheatKey() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            const seg = () => Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+            return `NKCHEAT-VIP-${seg()}-${seg()}`;
+        }
+
+        function buyProduct(productId) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+
+            const qty = selectedQuantities[productId] || 1;
+            if (prod.stock < qty) {
+                showToast('Số lượng Key trong kho không đủ!', 'error');
+                return;
+            }
+
+            const totalCost = prod.price * qty;
+            if (balance < totalCost) {
+                showToast(`Số dư không đủ (${formatVND(balance)}). Vui lòng nạp thêm ${formatVND(totalCost - balance)} qua QR ZaloPay!`, 'error');
+                switchTab('topup');
+                return;
+            }
+
+            // Deduct balance & stock
+            balance -= totalCost;
+            prod.stock -= qty;
+            selectedQuantities[productId] = 1;
+
+            if (!Array.isArray(prod.keyPool)) {
+                prod.keyPool = [];
+            }
+
+            // Pull from pre-loaded keys first, or auto-generate if pool is empty
+            const deliveredKeys = [];
+            for (let i = 0; i < qty; i++) {
+                if (prod.keyPool.length > 0) {
+                    deliveredKeys.push(prod.keyPool.shift());
+                } else {
+                    deliveredKeys.push(generateNKCheatKey());
+                }
+            }
+
+            lastPurchasedKeys = deliveredKeys;
+            lastPurchasedProductName = prod.name;
+
+            const newOrder = {
+                id: 'NK-' + Date.now().toString().slice(-6),
+                productName: prod.name,
+                quantity: qty,
+                totalPrice: totalCost,
+                keys: deliveredKeys,
+                time: new Date().toLocaleString('vi-VN')
+            };
+            orders.unshift(newOrder);
+
+            saveStateToStorage();
+            updateBalanceUI();
+            renderProducts();
+            renderInstantKeyBox();
+
+            // Open Delivered Keys Modal & Scroll to Key Box
+            openPurchaseModal(newOrder);
+            showToast(`Mua thành công! Đã xuất ${qty} mã Key NKCheat.`, 'success');
+        }
+
+        function openPurchaseModal(order) {
+            document.getElementById('modal-purchase-subtitle').textContent =
+                `${order.quantity}x ${order.productName} • Tổng: ${formatVND(order.totalPrice)}`;
+
+            const container = document.getElementById('modal-keys-container');
+            container.innerHTML = order.keys.map((k, idx) => `
+                <div class="flex items-center justify-between bg-slate-900 px-3.5 py-2.5 rounded-xl border border-slate-800">
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <span class="text-xs font-bold text-slate-500">#${idx + 1}</span>
+                        <span class="font-mono text-xs sm:text-sm font-extrabold text-emerald-400 truncate">${k}</span>
+                    </div>
+                    <button onclick="copyText('${k}', 'Đã sao chép Key #${idx + 1}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-blue-400 shrink-0">
+                        <i class="fa-regular fa-copy mr-1"></i>Copy
+                    </button>
+                </div>
+            `).join('');
+
+            document.getElementById('purchase-modal').classList.remove('hidden');
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchase-modal').classList.add('hidden');
+        }
+
+        function copyAllCurrentKeys() {
+            if (!lastPurchasedKeys || lastPurchasedKeys.length === 0) return;
+            copyText(lastPurchasedKeys.join('\n'), `Đã sao chép toàn bộ ${lastPurchasedKeys.length} mã Key NKCheat!`);
+        }
+
+        function downloadCurrentKeysTxt() {
+            if (!lastPurchasedKeys || lastPurchasedKeys.length === 0) return;
+            const content = `=== DANH SÁCH KEY NKCHEAT ĐÃ MUA ===\nSản phẩm: ${lastPurchasedProductName}\nThời gian: ${new Date().toLocaleString('vi-VN')}\n----------------------------------\n` + lastPurchasedKeys.join('\n');
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Key-NKCheat-${Date.now().toString().slice(-5)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Đã tải xuống file chứa mã Key (.txt)!', 'success');
+        }
+
+        // --- ZALOPAY QR TOP-UP FUNCTIONS ---
+        function switchTopupMethod(method) {
+            const isZalo = method === 'zalopay';
+            document.getElementById('topup-zalopay-panel').classList.toggle('hidden', !isZalo);
+            document.getElementById('topup-card-panel').classList.toggle('hidden', isZalo);
+
+            document.getElementById('btn-method-zalopay').className = isZalo
+                ? 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#0068ff] text-white transition'
+                : 'px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition';
+
+            document.getElementById('btn-method-card').className = !isZalo
+                ? 'px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#0068ff] text-white transition'
+                : 'px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-300 hover:text-white transition';
+        }
+
+        function setTopupAmount(amt) {
+            document.getElementById('topup-amount-input').value = amt;
+            updateZaloPayQR();
+        }
+
+        function updateZaloPayQR() {
+            let amt = parseInt(document.getElementById('topup-amount-input').value, 10) || 10000;
+            if (amt < 1000) amt = 1000;
+            document.getElementById('qr-amount-display').textContent = Number(amt).toLocaleString('vi-VN') + ' VNĐ';
+
+            const qrImg = document.getElementById('zalopay-qr-img');
+            if (zalopayConfig.customQrUrl && zalopayConfig.customQrUrl.trim() !== '') {
+                qrImg.src = zalopayConfig.customQrUrl;
+            } else {
+                const payload = `ZALOPAY|PHONE:${zalopayConfig.phone}|NAME:${zalopayConfig.owner}|AMOUNT:${amt}|MEMO:${transferMemoCode}`;
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=6&data=${encodeURIComponent(payload)}`;
+            }
+        }
+
+        function toggleCustomQRConfig() {
+            const box = document.getElementById('custom-qr-config-box');
+            box.classList.toggle('hidden');
+            document.getElementById('cfg-zalo-phone').value = zalopayConfig.phone || '';
+            document.getElementById('cfg-zalo-owner').value = zalopayConfig.owner || '';
+            document.getElementById('cfg-zalo-qr-url').value = zalopayConfig.customQrUrl || '';
+        }
+
+        function applyZaloPayConfigUI() {
+            document.getElementById('zalopay-phone-display').textContent = zalopayConfig.phone || '0988.999.888';
+            document.getElementById('zalopay-owner-display').textContent = zalopayConfig.owner || 'NKCHEAT STORE';
+        }
+
+        function saveZaloPayConfig() {
+            zalopayConfig.phone = document.getElementById('cfg-zalo-phone').value.trim() || '0988.999.888';
+            zalopayConfig.owner = document.getElementById('cfg-zalo-owner').value.trim() || 'NKCHEAT STORE';
+            zalopayConfig.customQrUrl = document.getElementById('cfg-zalo-qr-url').value.trim();
+            saveStateToStorage();
+            applyZaloPayConfigUI();
+            updateZaloPayQR();
+            document.getElementById('custom-qr-config-box').classList.add('hidden');
+            showToast('Đã lưu cấu hình QR ZaloPay!', 'success');
+        }
+
+        function uploadCustomQRFile(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('cfg-zalo-qr-url').value = e.target.result;
+                saveZaloPayConfig();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function copyMemo() {
+            copyText(transferMemoCode, 'Đã sao chép nội dung chuyển tiền ZaloPay!');
+        }
+
+        function simulateAutoZaloPayTopup() {
+            const amtInput = document.getElementById('topup-amount-input');
+            const amt = parseInt(amtInput.value, 10);
+            if (isNaN(amt) || amt < 10000) {
+                showToast('Số tiền nạp qua ZaloPay tối thiểu là 10.000đ!', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('btn-simulate-bank');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Đang xác thực giao dịch ZaloPay...`;
+
+            setTimeout(() => {
+                balance += amt;
+                saveStateToStorage();
+                updateBalanceUI();
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+                showToast(`Nạp QR ZaloPay thành công: Đã cộng +${formatVND(amt)} vào số dư!`, 'success');
+            }, 1100);
+        }
+
+        function submitCardTopup() {
+            const telco = document.getElementById('card-telco').value;
+            const amt = parseInt(document.getElementById('card-amount').value, 10);
+            const serial = document.getElementById('card-serial').value.trim();
+            const pin = document.getElementById('card-pin').value.trim();
+
+            if (serial.length < 6 || pin.length < 6) {
+                showToast('Vui lòng nhập đầy đủ Số Seri và Mã Thẻ hợp lệ!', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('btn-submit-card');
+            const originalHTML = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Hệ thống đang gạch thẻ tự động...`;
+
+            setTimeout(() => {
+                balance += amt;
+                saveStateToStorage();
+                updateBalanceUI();
+                document.getElementById('card-serial').value = '';
+                document.getElementById('card-pin').value = '';
+                btn.disabled = false;
+                btn.innerHTML = originalHTML;
+                showToast(`Nạp thẻ ${telco} thành công! Đã cộng +${formatVND(amt)} vào số dư.`, 'success');
+            }, 1300);
+        }
+
+        // --- ORDER HISTORY RENDERING ---
+        function renderOrderHistory() {
+            const list = document.getElementById('order-history-list');
+            if (orders.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-12 space-y-3">
+                        <i class="fa-solid fa-key text-4xl text-slate-600"></i>
+                        <div class="text-base font-bold text-slate-300">Bạn chưa có mã Key nào đã mua</div>
+                        <p class="text-xs text-slate-400">Hãy chọn sản phẩm tại Cửa Hàng NKCheat để mua và nhận Key tự động.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = orders.map(ord => `
+                <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-800">
+                        <div class="flex items-center gap-2.5">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-500/15 text-blue-400 font-mono text-xs font-bold border border-blue-500/30">
+                                ${ord.id}
+                            </span>
+                            <h4 class="font-extrabold text-white text-sm sm:text-base">${ord.productName}</h4>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs">
+                            <span class="text-slate-400"><i class="fa-regular fa-clock mr-1"></i>${ord.time}</span>
+                            <span class="font-bold text-emerald-400">SL: ${ord.quantity} • Tổng: ${formatVND(ord.totalPrice)}</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between text-xs text-slate-400">
+                            <span>Danh sách Key đã xuất (${ord.keys.length}):</span>
+                            <button onclick="copyText('${ord.keys.join('\\n')}', 'Đã sao chép toàn bộ Key của đơn ${ord.id}!')" class="text-blue-400 hover:underline font-semibold">
+                                <i class="fa-regular fa-copy mr-1"></i>Copy tất cả Key đơn này
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            ${ord.keys.map(k => `
+                                <div class="flex items-center justify-between bg-slate-950 px-3 py-2 rounded-xl border border-slate-800/90">
+                                    <span class="font-mono text-xs font-bold text-emerald-400 truncate mr-2">${k}</span>
+                                    <button onclick="copyText('${k}', 'Đã sao chép Key: ${k}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200 shrink-0">
+                                        Copy
+                                    </button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- ADMIN STOCK & KEY POOL MANAGER ---
+        function openAdminModal() {
+            renderAdminProductList();
+            document.getElementById('admin-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function renderAdminProductList() {
+            // Populate select dropdown for adding custom keys
+            const selectEl = document.getElementById('admin-keypool-product');
+            if (selectEl) {
+                selectEl.innerHTML = products.map(p => `<option value="${p.id}">${p.name} (Đang có: ${p.stock})</option>`).join('');
+            }
+
+            const container = document.getElementById('admin-product-list');
+            container.innerHTML = products.map(p => {
+                const poolCount = (p.keyPool && p.keyPool.length) ? p.keyPool.length : 0;
+                return `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900/95 p-3.5 rounded-xl border border-slate-800">
+                        <div class="space-y-0.5">
+                            <div class="font-bold text-sm text-white">${p.name}</div>
+                            <div class="text-xs text-slate-400">
+                                Giá: <span class="text-blue-400 font-semibold">${formatVND(p.price)}</span>
+                                • Key nạp sẵn: <span class="text-emerald-400 font-bold">${poolCount} key</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <div class="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1.5 rounded-lg border border-slate-800">
+                                <span class="text-xs text-slate-400">Tổng Kho:</span>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    value="${p.stock}"
+                                    onchange="updateProductStockDirect('${p.id}', this.value)"
+                                    class="w-16 px-2 py-0.5 rounded bg-slate-800 text-emerald-400 font-extrabold text-xs text-center focus:outline-none border border-slate-700"
+                                >
+                            </div>
+                            <button onclick="quickAddStockAdmin('${p.id}', 20)" class="px-2.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold transition">
+                                +20 SP
+                            </button>
+                            <button onclick="quickAddStockAdmin('${p.id}', 100)" class="px-2.5 py-1.5 rounded-lg bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 text-xs font-bold transition">
+                                +100 SP
+                            </button>
+                            <button onclick="deleteProduct('${p.id}')" title="Xóa sản phẩm" class="px-2.5 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/30 text-rose-400 text-xs transition">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function addKeysToProductPool() {
+            const prodId = document.getElementById('admin-keypool-product').value;
+            const rawText = document.getElementById('admin-keypool-textarea').value;
+            const prod = products.find(p => p.id === prodId);
+            if (!prod) return;
+
+            const lines = rawText
+                .split(/\r?\n/)
+                .map(line => line.trim())
+                .filter(line => line.length > 0);
+
+            if (lines.length === 0) {
+                showToast('Vui lòng nhập ít nhất 1 mã Key (mỗi dòng 1 Key)!', 'error');
+                return;
+            }
+
+            if (!Array.isArray(prod.keyPool)) {
+                prod.keyPool = [];
+            }
+
+            prod.keyPool.push(...lines);
+            prod.stock += lines.length;
+
+            document.getElementById('admin-keypool-textarea').value = '';
+            saveStateToStorage();
+            renderAdminProductList();
+            renderProducts();
+            showToast(`Đã nạp thành công +${lines.length} mã Key vào "${prod.name}"!`, 'success');
+        }
+
+        function updateProductStockDirect(productId, newStockVal) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+            let val = parseInt(newStockVal, 10);
+            if (isNaN(val) || val < 0) val = 0;
+            prod.stock = val;
+            saveStateToStorage();
+            renderProducts();
+            showToast(`Đã cập nhật số lượng kho của "${prod.name}" thành ${val}`, 'success');
+        }
+
+        function quickAddStockAdmin(productId, addAmount) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+            prod.stock += addAmount;
+            saveStateToStorage();
+            renderAdminProductList();
+            renderProducts();
+            showToast(`Đã cộng thêm +${addAmount} sản phẩm vào "${prod.name}"`, 'success');
+        }
+
+        function addNewProduct() {
+            const name = document.getElementById('new-prod-name').value.trim();
+            const category = document.getElementById('new-prod-cat').value;
+            const price = parseInt(document.getElementById('new-prod-price').value, 10);
+            const stock = parseInt(document.getElementById('new-prod-stock').value, 10);
+            const desc = document.getElementById('new-prod-desc').value.trim();
+
+            if (!name) {
+                showToast('Vui lòng nhập tên sản phẩm mới!', 'error');
+                return;
+            }
+            if (isNaN(price) || price < 1000) {
+                showToast('Giá sản phẩm phải từ 1.000đ trở lên!', 'error');
+                return;
+            }
+
+            const newProd = {
+                id: 'nk-' + Date.now().toString().slice(-5),
+                name,
+                category,
+                price,
+                stock: isNaN(stock) || stock < 0 ? 10 : stock,
+                badge: 'Mới',
+                desc: desc || 'Gói sản phẩm NKCheat chính hãng, trả key tự động 24/7 ngay sau khi mua.',
+                features: ['Xuất mã kích hoạt tự động 24/7', 'Bảo hành uy tín tại NKCheat'],
+                keyPool: []
+            };
+
+            products.unshift(newProd);
+            saveStateToStorage();
+            renderAdminProductList();
+            renderProducts();
+
+            document.getElementById('new-prod-name').value = '';
+            document.getElementById('new-prod-desc').value = '';
+            showToast(`Đã thêm sản phẩm "${name}" vào cửa hàng NKCheat!`, 'success');
+        }
+
+        function deleteProduct(productId) {
+            if (products.length <= 1) {
+                showToast('Cần giữ lại ít nhất 1 sản phẩm trên cửa hàng!', 'error');
+                return;
+            }
+            products = products.filter(p => p.id !== productId);
+            saveStateToStorage();
+            renderAdminProductList();
+            renderProducts();
+            showToast('Đã xóa sản phẩm khỏi cửa hàng.', 'info');
+        }
+
+        function resetDefaultShopData() {
+            products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+            saveStateToStorage();
+            renderAdminProductList();
+            renderProducts();
+            showToast('Đã khôi phục danh sách sản phẩm mặc định của NKCheat!', 'success');
+        }
+
+        // --- CLIPBOARD HELPER ---
+        function copyText(text, successMsg) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMsg || 'Đã sao chép vào bộ nhớ tạm!', 'success');
+            } catch (err) {
+                showToast('Không thể sao chép tự động', 'error');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // --- TOAST NOTIFICATION ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+
+            let icon = 'fa-circle-check text-emerald-400';
+            let border = 'border-emerald-500/40';
+            if (type === 'error') {
+                icon = 'fa-triangle-exclamation text-rose-400';
+                border = 'border-rose-500/40';
+            } else if (type === 'info') {
+                icon = 'fa-circle-info text-blue-400';
+                border = 'border-blue-500/40';
+            }
+
+            toast.className = `glass-card ${border} border rounded-xl p-3.5 shadow-xl flex items-center gap-3 pointer-events-auto transition-all duration-300`;
+            toast.innerHTML = `
+                <i class="fa-solid ${icon} text-lg shrink-0"></i>
+                <span class="text-xs sm:text-sm font-semibold text-white leading-snug">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3200);
+        }
+    </script>
+</body>
+</html>
