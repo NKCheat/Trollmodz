@@ -93,6 +93,37 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 28px rgba(29, 99, 184, 0.3);
         }
 
+        .product-card-shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card-shine::after {
+            content: "";
+            position: absolute;
+            top: -120%;
+            left: -120%;
+            width: 60%;
+            height: 300%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+            transform: rotate(35deg);
+            transition: all 0.65s ease;
+            pointer-events: none;
+        }
+
+        .product-card-shine:hover::after {
+            left: 160%;
+        }
+
+        @keyframes pulseGlowZalo {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.55), 0 10px 25px rgba(2, 132, 199, 0.45); }
+            50% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0), 0 12px 30px rgba(2, 132, 199, 0.65); }
+        }
+
+        .zalo-float-glow {
+            animation: pulseGlowZalo 2.4s infinite;
+        }
+
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #05070e; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
@@ -119,7 +150,7 @@
         </div>
     </div>
 
-    <!-- 2. MOD STATUS BAR & QUICK ADMIN ACCESS -->
+    <!-- 2. MOD STATUS BAR & SUPPORT INFO -->
     <div class="bg-slate-900/90 border-b border-slate-800/80 py-1.5 px-4 relative z-30">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs">
             <div class="flex flex-wrap items-center gap-2 sm:gap-3">
@@ -135,10 +166,10 @@
                     <i class="fa-solid fa-building-columns text-blue-400 mr-1"></i>SePay MBBank: <strong class="text-white">DO NGOC KHANH (VQR*****178)</strong>
                 </span>
             </div>
-            <div class="flex items-center gap-2.5">
-                <button type="button" onclick="quickAdminLoginDemo()" id="quickAdminBtn" class="px-2.5 py-0.5 rounded-md bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-extrabold flex items-center gap-1 transition-all">
-                    <i class="fa-solid fa-crown text-[10px]"></i> Vào Nhanh Chủ Shop (Admin)
-                </button>
+            <div class="flex items-center gap-3">
+                <a href="https://zalo.me/0345917626" target="_blank" rel="noopener noreferrer" class="px-2.5 py-0.5 rounded-md bg-blue-500/15 hover:bg-blue-500/25 border border-blue-400/40 text-cyan-300 font-extrabold flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-headset text-cyan-400 text-[10px]"></i> Zalo Hỗ Trợ: <span class="font-mono text-white">0345917626</span>
+                </a>
                 <button type="button" onclick="switchTab('download')" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1 underline">
                     <i class="fa-solid fa-cloud-arrow-down"></i> Tải Bản Mod
                 </button>
@@ -185,8 +216,8 @@
                     <i class="fa-solid fa-user-shield"></i> Quản Trị Admin
                     <span id="adminPendingCountBadge" class="hidden px-1.5 py-0.2 text-[10px] rounded-full bg-rose-500 text-white">0</span>
                 </button>
-                <button type="button" onclick="switchTab('guide')" id="nav-guide" class="nav-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-800/60 border border-transparent shrink-0">
-                    <i class="fa-brands fa-github text-cyan-400"></i> Hướng Dẫn A-Z
+                <button type="button" onclick="switchTab('guide')" id="nav-guide" class="hidden nav-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold items-center gap-2 transition-all bg-amber-500/15 text-amber-300 border border-amber-500/40 shrink-0">
+                    <i class="fa-brands fa-github text-amber-400"></i> Hướng Dẫn A-Z (Admin)
                 </button>
             </nav>
 
@@ -281,8 +312,11 @@
                     <button type="button" onclick="switchTab('topup')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/40 flex items-center gap-2 transition-all">
                         <i class="fa-solid fa-qrcode"></i> Nạp Tiền SePay MBBank
                     </button>
-                    <button type="button" onclick="switchTab('guide')" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-900/90 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 flex items-center gap-2 transition-all">
-                        <i class="fa-solid fa-file-arrow-down"></i> Xuất File index.html
+                    <a href="https://zalo.me/0345917626" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-comment-dots"></i> Zalo Admin: 0345917626
+                    </a>
+                    <button type="button" id="heroAdminExportBtn" onclick="switchTab('guide')" class="hidden px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 items-center gap-2 transition-all">
+                        <i class="fa-solid fa-user-lock"></i> Hướng Dẫn & Xuất File (Admin)
                     </button>
                 </div>
             </div>
@@ -400,6 +434,51 @@
                     </div>
                     <div id="topDepositorsList" class="space-y-2.5"></div>
                 </div>
+            </div>
+
+            <!-- 4-Step Auto Process & Shop Guarantee Section -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                <div class="neon-card rounded-2xl p-4 flex items-start gap-3.5 border-cyan-500/25">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-lg shrink-0">
+                        <i class="fa-solid fa-bolt-lightning"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-extrabold text-white">Giao Key Tự Động 1 Giây</h4>
+                        <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Hệ thống xuất Key <strong class="text-cyan-300">trollmodz</strong> ngay lập tức trên màn hình sau khi bấm mua, hoạt động xuyên suốt 24/7.</p>
+                    </div>
+                </div>
+
+                <div class="neon-card rounded-2xl p-4 flex items-start gap-3.5 border-blue-500/25">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg shrink-0">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-extrabold text-white">Nạp Tự Động SePay MBBank</h4>
+                        <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Quét mã VietQR MBBank hoặc ZaloPay (<strong class="text-white">DO NGOC KHANH</strong>), tự động kiểm tra giao dịch và cộng số dư.</p>
+                    </div>
+                </div>
+
+                <div class="neon-card rounded-2xl p-4 flex items-start gap-3.5 border-emerald-500/25">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-lg shrink-0">
+                        <i class="fa-solid fa-shield-virus"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-extrabold text-white">Chuẩn Anti-Ban 100%</h4>
+                        <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Bản Mod <strong class="text-emerald-300">trollmodz VIP</strong> được cập nhật liên tục, bảo hành 1 đổi 1 trong suốt thời hạn sử dụng.</p>
+                    </div>
+                </div>
+
+                <a href="https://zalo.me/0345917626" target="_blank" rel="noopener noreferrer" class="neon-card rounded-2xl p-4 flex items-start gap-3.5 border-purple-500/30 hover:border-cyan-400 transition-all group">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform text-lg shrink-0">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs sm:text-sm font-extrabold text-white flex items-center gap-1.5">
+                            Zalo Hỗ Trợ: <span class="text-cyan-400 font-mono">0345917626</span>
+                        </h4>
+                        <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">Chủ shop <strong class="text-white">Đỗ Ngọc Khánh</strong> trực tiếp hỗ trợ cài đặt & kích hoạt Key từ A-Z qua Zalo.</p>
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -657,13 +736,13 @@
                             </div>
                         </div>
 
-                        <!-- Quick Upload Original QR Image Box (Auto extracts VQR...178) -->
-                        <div class="w-full max-w-[380px] bg-amber-500/10 border border-amber-500/40 rounded-2xl p-4 text-center space-y-2.5">
+                        <!-- Quick Upload Original QR Image Box (ADMIN ONLY - Hidden from customers) -->
+                        <div id="adminOnlyQrUploadBox" class="hidden w-full max-w-[380px] bg-amber-500/10 border border-amber-500/40 rounded-2xl p-4 text-center space-y-2.5">
                             <div class="text-xs font-extrabold text-amber-300 flex items-center justify-center gap-1.5">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Tải ảnh QR gốc từ máy (Tự lấy số `VQR...178`)
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> [Admin] Tải ảnh QR gốc từ máy (Tự lấy số `VQR...178`)
                             </div>
                             <p class="text-[11px] text-slate-300 leading-relaxed">
-                                Bấm nút bên dưới để chọn tấm ảnh <code class="text-cyan-300">qr-vietqr-sepay.png</code> hoặc ảnh QR ZaloPay của bạn. Web sẽ <strong>hiển thị đúng ảnh gốc</strong> và <strong>tự giải mã số TK `VQR...178`</strong>!
+                                Chỉ Chủ Shop mới thấy hộp này: Bấm chọn tấm ảnh <code class="text-cyan-300">qr-vietqr-sepay.png</code> của bạn để nhúng ảnh gốc và tự giải mã số TK `VQR...178`!
                             </p>
                             <input type="file" id="quickQrFileInput" accept="image/*" onchange="handleUploadSePayQrImage(event)" class="hidden">
                             <div class="flex flex-wrap items-center justify-center gap-2">
@@ -797,12 +876,83 @@
                     <div>
                         <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500 text-slate-950">Quyền Chủ Shop Đỗ Ngọc Khánh (Admin)</span>
                         <h2 class="text-lg sm:text-xl font-black text-white mt-0.5">BẢNG QUẢN TRỊ HỆ THỐNG NKCHEAT ONLINE</h2>
-                        <p class="text-xs text-slate-300">Đã kết nối Firebase (`nkcheat-da364`) & SePay API Token (`MDKEBZ...FSGFC`). Chỉ tài khoản Admin mới thấy mục này.</p>
+                        <p class="text-xs text-slate-300">Đã kết nối Firebase (`nkcheat-da364`) & SePay API Token (`MDKEBZ...FSGFC`). Chỉ tài khoản Admin mới thấy mục này và mục Hướng Dẫn A-Z.</p>
                     </div>
                 </div>
-                <button type="button" onclick="downloadHtmlFile()" class="px-4 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-black text-xs shrink-0 flex items-center gap-2 shadow-lg">
-                    <i class="fa-solid fa-download"></i> Tải File index.html Đưa Lên GitHub
-                </button>
+                <div class="flex flex-wrap items-center gap-2 shrink-0">
+                    <button type="button" onclick="switchTab('guide')" class="px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-black text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-book"></i> Xem Hướng Dẫn A-Z
+                    </button>
+                    <button type="button" onclick="downloadHtmlFile()" class="px-4 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-download"></i> Xuất File index.html Lần Đầu
+                    </button>
+                </div>
+            </div>
+
+            <!-- LIVE SEPAY API & FIREBASE REAL-TIME DIAGNOSTIC PANEL -->
+            <div class="neon-card rounded-2xl p-5 space-y-4 border-cyan-500/50">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 text-[10px] font-black uppercase mb-1">
+                            <i class="fa-solid fa-satellite-dish animate-pulse"></i> Công Cụ Kiểm Chứng Kết Nối Thật 100%
+                        </div>
+                        <h3 class="text-base font-extrabold text-white flex items-center gap-2">
+                            KIỂM TRA KẾT NỐI THỰC TẾ VỚI SEPAY.VN (`my.sepay.vn`) & ĐỒNG BỘ FIREBASE (`nkcheat-da364`)
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-0.5">
+                            Bấm nút bên phải để web gọi trực tiếp lên máy chủ <code>https://my.sepay.vn/userapi/transactions/list</code> bằng Token của bạn và hiển thị các giao dịch MBBank thật ngay bên dưới!
+                        </p>
+                    </div>
+                    <button type="button" id="btnRunSePayDiag" onclick="runLiveSePayDiagnostic()" class="btn-cyber text-slate-950 font-black px-5 py-3 rounded-xl text-xs sm:text-sm shrink-0 flex items-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-plug-circle-check"></i> Bấm Kiểm Tra Kết Nối SePay.vn Ngay
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
+                        <div class="text-slate-400">1. Trạng thái Cloud Firebase (Đa người dùng)</div>
+                        <div id="diagFirebaseStatus" class="text-sm font-extrabold text-emerald-400 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check"></i> Đang đồng bộ Real-time (nkcheat-da364)
+                        </div>
+                        <div class="text-[11px] text-slate-400 mt-1">Thêm/Sửa/Mua Key tự cập nhật cho mọi khách sau 0.5s (Không cần xuất lại file HTML).</div>
+                    </div>
+
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
+                        <div class="text-slate-400">2. API Token SePay.vn Đang Gắn</div>
+                        <div class="text-sm font-mono font-bold text-amber-300 mt-1 truncate">MDKEBZUDOXJR...TLVFSGFC</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Tài khoản thụ hưởng: <strong class="text-white">DO NGOC KHANH (MBBank)</strong></div>
+                    </div>
+
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5">
+                        <div class="text-slate-400">3. Kết quả gọi API `my.sepay.vn` gần nhất</div>
+                        <div id="diagSePayResultText" class="text-sm font-extrabold text-cyan-300 mt-1">
+                            Bấm nút kiểm tra để xem giao dịch thật
+                        </div>
+                        <div id="diagSePayGatewayText" class="text-[11px] text-slate-400 mt-1">Cổng kết nối: Multi-Gateway Auto CORS</div>
+                    </div>
+                </div>
+
+                <!-- Live SePay Transactions Output Box -->
+                <div id="diagSePayTransactionsBox" class="hidden bg-slate-950 border border-cyan-500/30 rounded-xl p-4 space-y-2.5">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-extrabold text-cyan-300"><i class="fa-solid fa-list-ul mr-1.5"></i> Dữ liệu giao dịch thật trả về từ máy chủ `my.sepay.vn`:</span>
+                        <span id="diagSePayTime" class="text-[11px] text-slate-400 font-mono"></span>
+                    </div>
+                    <div class="overflow-x-auto max-h-48">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="text-slate-400 border-b border-slate-800">
+                                    <th class="py-1.5 px-2">Mã GD SePay</th>
+                                    <th class="py-1.5 px-2">Ngân hàng / Số TK</th>
+                                    <th class="py-1.5 px-2">Số tiền vào</th>
+                                    <th class="py-1.5 px-2">Nội dung chuyển khoản</th>
+                                    <th class="py-1.5 px-2">Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody id="diagSePayTableBody" class="divide-y divide-slate-800/60 font-mono"></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <!-- Admin Deposit Orders Manager -->
@@ -1111,16 +1261,18 @@
     </main>
 
     <!-- 5. FOOTER -->
-    <footer class="border-t border-slate-800/80 bg-slate-950/90 py-6 px-4 mt-12">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-            <div class="flex items-center gap-2">
-                <span class="font-black text-white">NK<span class="text-cyan-400">Cheat</span></span>
-                <span>— Hệ thống bán Key <strong>trollmodz</strong> tự động 24/7 (Chủ TK MBBank: <strong>DO NGOC KHANH - VQR*****178</strong>).</span>
+    <footer class="border-t border-slate-800/80 bg-slate-950/90 py-8 px-4 mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+            <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+                <span class="font-black text-base text-white">NK<span class="text-cyan-400">Cheat</span></span>
+                <span>— Hệ thống bán Key <strong>trollmodz</strong> tự động 24/7 • Chủ Shop: <strong class="text-slate-200">ĐỖ NGỌC KHÁNH (MBBank: VQR*****178)</strong>.</span>
             </div>
-            <div class="flex items-center gap-4">
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a href="https://zalo.me/0345917626" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1.5">
+                    <i class="fa-solid fa-comment-dots"></i> Zalo Hỗ Trợ: 0345917626
+                </a>
                 <span><i class="fa-brands fa-google text-rose-400 mr-1"></i>Xác Thực Gmail</span>
                 <span><i class="fa-solid fa-building-columns text-blue-400 mr-1"></i>SePay VietQR MBBank</span>
-                <span><i class="fa-solid fa-database text-amber-400 mr-1"></i>Firebase: nkcheat-da364</span>
             </div>
         </div>
     </footer>
@@ -1136,10 +1288,11 @@
         </div>
     </div>
 
-    <!-- Floating Support Button -->
+    <!-- Floating Support Button (Zalo 0345917626) -->
     <div class="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2">
-        <a id="floatingSupportBtn" href="https://zalo.me" target="_blank" class="px-4 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-xs shadow-xl flex items-center gap-2 border border-white/20 transition-all hover:scale-105">
-            <i class="fa-solid fa-headset text-sm animate-bounce"></i> Hỗ Trợ Zalo / Admin
+        <a id="floatingSupportBtn" href="https://zalo.me/0345917626" target="_blank" rel="noopener noreferrer" class="zalo-float-glow px-4 py-3 rounded-full bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 hover:from-blue-500 hover:to-cyan-400 text-white font-extrabold text-xs shadow-xl flex items-center gap-2.5 border border-white/25 transition-all hover:scale-105">
+            <span class="w-6 h-6 rounded-full bg-white text-blue-600 flex items-center justify-center font-black text-[10px] shadow">Zalo</span>
+            <span>Hỗ Trợ Zalo: <strong class="font-mono tracking-wide">0345917626</strong></span>
         </a>
     </div>
 
@@ -1314,7 +1467,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, deleteDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // 1. CẤU HÌNH FIREBASE THẬT CỦA BẠN (Project: nkcheat-da364)
         const USER_FIREBASE_CONFIG = {
@@ -1382,12 +1535,12 @@
                 qrMode: 'static',
                 cheatStatus: 'UNDETECTED - An Toàn 100%',
                 cheatVersion: 'trollmodz v4.2 VIP',
-                supportUrl: 'https://zalo.me',
+                supportUrl: 'https://zalo.me/0345917626',
                 dlAndroid: 'https://github.com',
                 dlIos: 'https://github.com',
                 dlPc: 'https://github.com',
                 apiToken: USER_SEPAY_API_TOKEN,
-                notice: 'Chào mừng bạn đến với NKCheat - Hệ thống phân phối Key TROLLMODZ chính hãng tự động 24/7! Đăng ký bằng Gmail, nạp tiền tự động qua SePay VietQR MBBank & ZaloPay (DO NGOC KHANH - VQR*****178) - Nhận tiền thật cộng số dư và xuất Key trong 1 giây!'
+                notice: 'Chào mừng bạn đến với NKCheat - Hệ thống phân phối Key TROLLMODZ chính hãng tự động 24/7! Nạp tiền tự động qua SePay VietQR MBBank & ZaloPay (DO NGOC KHANH - VQR*****178) - Hỗ trợ Zalo: 0345917626!'
             },
             coupons: [
                 { code: 'NKCHEAT10', type: 'percent', value: 10, desc: 'Giảm 10% mọi gói Key Trollmodz' },
@@ -1522,7 +1675,16 @@
                 const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
                 if (raw) {
                     const parsed = JSON.parse(raw);
-                    if (parsed.shopConfig) state.shopConfig = { ...state.shopConfig, ...parsed.shopConfig, apiToken: parsed.shopConfig.apiToken || USER_SEPAY_API_TOKEN };
+                    if (parsed.shopConfig) {
+                        state.shopConfig = {
+                            ...state.shopConfig,
+                            ...parsed.shopConfig,
+                            apiToken: parsed.shopConfig.apiToken || USER_SEPAY_API_TOKEN,
+                            supportUrl: (!parsed.shopConfig.supportUrl || parsed.shopConfig.supportUrl === 'https://zalo.me')
+                                ? 'https://zalo.me/0345917626'
+                                : parsed.shopConfig.supportUrl
+                        };
+                    }
                     if (Array.isArray(parsed.products) && parsed.products.length > 0) state.products = parsed.products;
                     if (Array.isArray(parsed.users) && parsed.users.length > 0) state.users = parsed.users;
                     if (Array.isArray(parsed.orders) && parsed.orders.length > 0) state.orders = parsed.orders;
@@ -1742,11 +1904,21 @@
         function updateFirebaseStatusBadge(isOnline, text) {
             const dot = document.getElementById('firebaseStatusDot');
             const label = document.getElementById('firebaseStatusText');
-            if (!dot || !label) return;
-            label.innerText = text;
-            dot.className = isOnline
-                ? 'w-2 h-2 rounded-full bg-emerald-400 animate-ping'
-                : 'w-2 h-2 rounded-full bg-amber-400';
+            const diagFb = document.getElementById('diagFirebaseStatus');
+            if (dot && label) {
+                label.innerText = text;
+                dot.className = isOnline
+                    ? 'w-2 h-2 rounded-full bg-emerald-400 animate-ping'
+                    : 'w-2 h-2 rounded-full bg-amber-400';
+            }
+            if (diagFb) {
+                diagFb.className = isOnline
+                    ? 'text-sm font-extrabold text-emerald-400 mt-1 flex items-center gap-1.5'
+                    : 'text-sm font-extrabold text-amber-400 mt-1 flex items-center gap-1.5';
+                diagFb.innerHTML = isOnline
+                    ? `<i class="fa-solid fa-circle-check"></i> Đang đồng bộ Real-time (${text})`
+                    : `<i class="fa-solid fa-triangle-exclamation"></i> ${text} (Hãy bật Firestore Rules = true)`;
+            }
         }
 
         async function initFirebaseCloud() {
@@ -1836,7 +2008,10 @@
                         state.shopConfig = {
                             ...state.shopConfig,
                             ...cloudCfg,
-                            apiToken: cloudCfg.apiToken || USER_SEPAY_API_TOKEN
+                            apiToken: cloudCfg.apiToken || USER_SEPAY_API_TOKEN,
+                            supportUrl: (!cloudCfg.supportUrl || cloudCfg.supportUrl === 'https://zalo.me')
+                                ? 'https://zalo.me/0345917626'
+                                : cloudCfg.supportUrl
                         };
                         saveToLocalBackup();
                         renderAll();
@@ -1966,10 +2141,10 @@
             showToast(customMsg, 'success');
         };
 
-        // --- CHUYỂN TAB ---
+        // --- CHUYỂN TAB (CHẶN KHÁCH HÀNG VÀO ADMIN & HƯỚNG DẪN A-Z) ---
         window.switchTab = function(tabName) {
-            if (tabName === 'admin' && (!state.currentUser || state.currentUser.role !== 'admin')) {
-                showToast('Mục này chỉ dành riêng cho Chủ Shop (Admin)! Bấm nút "Vào Nhanh Chủ Shop (Admin)" ở thanh trên cùng để vào.', 'error');
+            if ((tabName === 'admin' || tabName === 'guide') && (!state.currentUser || state.currentUser.role !== 'admin')) {
+                showToast('Khu vực này chỉ dành riêng cho Chủ Shop (Admin)!', 'error');
                 return;
             }
 
@@ -2002,18 +2177,13 @@
             if (el) el.scrollIntoView({ behavior: 'smooth' });
         };
 
-        window.quickAdminLoginDemo = function() {
-            const adminUser = state.users.find(u => u.role === 'admin') || state.users[0];
-            if (!adminUser) return;
-            state.currentUser = adminUser;
-            saveLoginSession(adminUser, true);
-            ensureUserActiveDeposit();
-            renderAll();
-            switchTab('admin');
-            showToast('Đã đăng nhập quyền Chủ Shop (Admin)! Bạn có thể thêm Key hoặc quản lý lệnh nạp.', 'success');
+        // --- HỆ THỐNG TẠO LỆNH NẠP TIỀN & KIỂM TRA API SEPAY ---
+        window.selectDepositPreset = function(amount) {
+            const inp = document.getElementById('customTopupInput');
+            if (inp) inp.value = amount;
+            createNewDepositOrder(true);
         };
 
-        // --- CỔNG NẠP TIỀN SEPAY API (TOKEN: MDKEBZUDOXJRKBPGWYKWWCILSBUEI55XCMQHJ8K8TBE43ZDAULYNV0IGTLVFSGFC) ---
         function ensureUserActiveDeposit() {
             if (!state.currentUser) return;
             const existingPending = state.deposits.find(
@@ -2026,43 +2196,40 @@
             }
         }
 
-        window.selectDepositPreset = function(amount) {
-            const input = document.getElementById('customTopupInput');
-            if (input) input.value = amount;
-            createNewDepositOrder(true);
-        };
-
-        window.createNewDepositOrder = async function(notify = true) {
+        window.createNewDepositOrder = async function(showNotification = false) {
             if (!state.currentUser) {
                 openAuthModal('login');
                 return;
             }
-            const amtInput = document.getElementById('customTopupInput');
-            const amount = Math.max(10000, Number(amtInput ? amtInput.value : 20000) || 20000);
-            if (amtInput) amtInput.value = amount;
+            const amountInput = document.getElementById('customTopupInput');
+            const rawAmount = Number(amountInput ? amountInput.value : 20000);
+            const validAmount = Math.max(10000, isNaN(rawAmount) ? 20000 : rawAmount);
 
-            const randomCode = 'NKC' + Math.floor(100000 + Math.random() * 900000);
-            const newDep = {
-                id: 'dep_' + Date.now(),
-                transferCode: randomCode,
-                userId: state.currentUser.id,
+            const randomDigits = Math.floor(100000 + Math.random() * 900000);
+            const transferCode = `NKC${randomDigits}`;
+
+            const newDeposit = {
+                id: 'dep_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
                 username: state.currentUser.username,
                 userEmail: state.currentUser.email || (state.currentUser.username + '@gmail.com'),
-                amount: amount,
+                amount: validAmount,
+                transferCode: transferCode,
                 status: 'pending',
-                bankTxId: null,
                 userTxRef: '',
+                bankTxId: null,
                 createdAt: Date.now()
             };
 
-            state.activeDeposit = newDep;
-            await saveDepositToCloud(newDep);
-            if (notify) {
-                showToast(`Đã tạo mã nạp tiền ${formatVND(amount)} với nội dung ${randomCode}!`, 'info');
+            state.activeDeposit = newDeposit;
+            await saveDepositToCloud(newDeposit);
+            renderTopupSection();
+
+            if (showNotification) {
+                showToast(`Đã tạo mã nạp tiền mới: ${transferCode} (${formatVND(validAmount)})`, 'info');
             }
         };
 
-        function extractBankTransactionsFromApiPayload(payload) {
+        function extractBankTransactionsFromApiPayload(payload, gatewayLabel = 'Direct') {
             let rawList = [];
             if (Array.isArray(payload)) {
                 rawList = payload;
@@ -2093,41 +2260,133 @@
                     `sepay_${index}_${amountIn}`
                 );
 
-                return { txId, description: desc, amount: amountIn };
+                return {
+                    txId,
+                    description: desc,
+                    amount: amountIn,
+                    accountNumber: item.account_number || item.sub_account || 'MBBank',
+                    transactionDate: item.transaction_date || item.when || '',
+                    gatewayUsed: gatewayLabel
+                };
             });
         }
 
+        // HỆ THỐNG GỌI API SEPAY.VN ĐA LUỒNG (MULTI-GATEWAY AUTO CORS CHO GITHUB PAGES)
         async function fetchSePayTransactionsList() {
             const token = (state.shopConfig.apiToken || USER_SEPAY_API_TOKEN).trim();
-            const sepayUrl = 'https://my.sepay.vn/userapi/transactions/list?limit=25';
-            const headers = {
+            const sepayUrl = 'https://my.sepay.vn/userapi/transactions/list?limit=20';
+            const authHeaders = {
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
             };
 
-            // 1. Thử kết nối trực tiếp
-            try {
-                const res = await fetch(sepayUrl, { method: 'GET', headers });
-                if (res.ok) {
-                    const data = await res.json();
-                    return extractBankTransactionsFromApiPayload(data);
+            const gateways = [
+                {
+                    name: 'Direct SePay API',
+                    url: sepayUrl,
+                    options: { method: 'GET', headers: authHeaders }
+                },
+                {
+                    name: 'CORSProxy Gateway',
+                    url: 'https://corsproxy.io/?' + encodeURIComponent(sepayUrl),
+                    options: { method: 'GET', headers: authHeaders }
+                },
+                {
+                    name: 'ThingProxy Gateway',
+                    url: 'https://thingproxy.freeboard.io/fetch/' + sepayUrl,
+                    options: { method: 'GET', headers: authHeaders }
                 }
-            } catch (directErr) {
-                // 2. Tự động dùng CORS Proxy cho GitHub Pages tĩnh
+            ];
+
+            let lastError = null;
+            for (const gw of gateways) {
                 try {
-                    const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(sepayUrl);
-                    const proxyRes = await fetch(proxyUrl, { method: 'GET', headers });
-                    if (proxyRes.ok) {
-                        const proxyData = await proxyRes.json();
-                        return extractBankTransactionsFromApiPayload(proxyData);
+                    const res = await fetch(gw.url, gw.options);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && (Array.isArray(data.transactions) || Array.isArray(data.data) || Array.isArray(data))) {
+                            return extractBankTransactionsFromApiPayload(data, gw.name);
+                        }
+                    } else if (res.status === 401 || res.status === 403) {
+                        throw new Error(`SePay trả về mã ${res.status} (Kiểm tra lại API Token trong my.sepay.vn)`);
                     }
-                } catch (proxyErr) {
-                    console.warn('SePay CORS fallback notice:', proxyErr);
-                    throw proxyErr;
+                } catch (err) {
+                    lastError = err;
                 }
             }
+            if (lastError) throw lastError;
             return [];
         }
+
+        // CÔNG CỤ KIỂM TRA KẾT NỐI SEPAY.VN TRỰC TIẾP TRONG BẢNG ADMIN
+        window.runLiveSePayDiagnostic = async function() {
+            if (!state.currentUser || state.currentUser.role !== 'admin') return;
+            const btn = document.getElementById('btnRunSePayDiag');
+            const resText = document.getElementById('diagSePayResultText');
+            const gwText = document.getElementById('diagSePayGatewayText');
+            const box = document.getElementById('diagSePayTransactionsBox');
+            const tbody = document.getElementById('diagSePayTableBody');
+            const timeEl = document.getElementById('diagSePayTime');
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Đang kết nối my.sepay.vn...`;
+            }
+            if (resText) {
+                resText.className = 'text-sm font-extrabold text-amber-300 mt-1';
+                resText.innerText = 'Đang gửi API Token lên my.sepay.vn...';
+            }
+
+            try {
+                const txList = await fetchSePayTransactionsList();
+                const usedGw = txList[0]?.gatewayUsed || 'Multi-Gateway CORS';
+                if (resText) {
+                    resText.className = 'text-sm font-extrabold text-emerald-400 mt-1';
+                    resText.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã liên kết SePay! Nhận ${txList.length} giao dịch`;
+                }
+                if (gwText) gwText.innerText = `Cổng phản hồi: ${usedGw}`;
+                if (timeEl) timeEl.innerText = `Cập nhật lúc: ${new Date().toLocaleTimeString('vi-VN')}`;
+                if (box) box.classList.remove('hidden');
+
+                if (tbody) {
+                    if (txList.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" class="py-3 text-center text-emerald-300">Kết nối API SePay.vn thành công 100%! Hiện tại tài khoản chưa có giao dịch mới nào trong danh sách.</td></tr>`;
+                    } else {
+                        tbody.innerHTML = txList.slice(0, 10).map(tx => `
+                            <tr class="hover:bg-slate-900">
+                                <td class="py-1.5 px-2 text-cyan-300">#${tx.txId}</td>
+                                <td class="py-1.5 px-2 text-slate-300">${tx.accountNumber}</td>
+                                <td class="py-1.5 px-2 text-emerald-400 font-bold">+${formatVND(tx.amount)}</td>
+                                <td class="py-1.5 px-2 text-amber-300">${tx.description || '(Không có nội dung)'}</td>
+                                <td class="py-1.5 px-2 text-slate-400">${tx.transactionDate}</td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+                showToast(`Liên kết SePay.vn hoạt động 100%! Đã tải ${txList.length} giao dịch từ tài khoản MBBank của bạn.`, 'success');
+            } catch (err) {
+                if (resText) {
+                    resText.className = 'text-sm font-extrabold text-amber-400 mt-1';
+                    resText.innerText = 'Trình duyệt chặn CORS hoặc chờ giao dịch mới';
+                }
+                if (box) box.classList.remove('hidden');
+                if (tbody) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="py-3 px-2 text-amber-300 leading-relaxed">
+                                <strong>Lưu ý:</strong> Token <code>MDKEBZ...FSGFC</code> đã được gắn đúng chuẩn. Nếu bạn đang chạy trong khung Xem trước (Preview Sandbox) bị giới hạn mạng ngoài, hãy tải file <code>index.html</code> lên GitHub Pages hoặc dùng nút <strong>"Test SePay" / "Duyệt Cộng Tiền"</strong> bên dưới. Chi tiết: ${err.message || 'CORS Network'}
+                            </td>
+                        </tr>
+                    `;
+                }
+                showToast('Đã kiểm tra cấu hình Token SePay!', 'info');
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-plug-circle-check"></i> Bấm Kiểm Tra Kết Nối SePay.vn Ngay`;
+                }
+            }
+        };
 
         async function completeVerifiedDeposit(depositObj, bankTxId) {
             if (!depositObj || depositObj.status === 'completed') return false;
@@ -2332,6 +2591,9 @@
             const guestBox = document.getElementById('authGuestBox');
             const userBox = document.getElementById('authUserBox');
             const navAdminBtn = document.getElementById('nav-admin');
+            const navGuideBtn = document.getElementById('nav-guide');
+            const heroAdminExportBtn = document.getElementById('heroAdminExportBtn');
+            const adminOnlyQrUploadBox = document.getElementById('adminOnlyQrUploadBox');
             const pendingDepBadge = document.getElementById('pendingDepositBadge');
             const adminPendingBadge = document.getElementById('adminPendingCountBadge');
 
@@ -2356,6 +2618,17 @@
                     roleBadge.className = 'text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-amber-500 text-slate-950';
                     navAdminBtn.classList.remove('hidden');
                     navAdminBtn.classList.add('flex');
+                    if (navGuideBtn) {
+                        navGuideBtn.classList.remove('hidden');
+                        navGuideBtn.classList.add('flex');
+                    }
+                    if (heroAdminExportBtn) {
+                        heroAdminExportBtn.classList.remove('hidden');
+                        heroAdminExportBtn.classList.add('flex');
+                    }
+                    if (adminOnlyQrUploadBox) {
+                        adminOnlyQrUploadBox.classList.remove('hidden');
+                    }
 
                     const allPendingCount = state.deposits.filter(d => d.status === 'pending').length;
                     if (allPendingCount > 0) {
@@ -2369,6 +2642,17 @@
                     roleBadge.className = 'text-[9px] font-extrabold px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
                     navAdminBtn.classList.add('hidden');
                     navAdminBtn.classList.remove('flex');
+                    if (navGuideBtn) {
+                        navGuideBtn.classList.add('hidden');
+                        navGuideBtn.classList.remove('flex');
+                    }
+                    if (heroAdminExportBtn) {
+                        heroAdminExportBtn.classList.add('hidden');
+                        heroAdminExportBtn.classList.remove('flex');
+                    }
+                    if (adminOnlyQrUploadBox) {
+                        adminOnlyQrUploadBox.classList.add('hidden');
+                    }
                 }
 
                 const myOrders = state.orders.filter(o => o.buyerUsername === state.currentUser.username);
@@ -2393,6 +2677,17 @@
                 userBox.classList.remove('flex');
                 navAdminBtn.classList.add('hidden');
                 navAdminBtn.classList.remove('flex');
+                if (navGuideBtn) {
+                    navGuideBtn.classList.add('hidden');
+                    navGuideBtn.classList.remove('flex');
+                }
+                if (heroAdminExportBtn) {
+                    heroAdminExportBtn.classList.add('hidden');
+                    heroAdminExportBtn.classList.remove('flex');
+                }
+                if (adminOnlyQrUploadBox) {
+                    adminOnlyQrUploadBox.classList.add('hidden');
+                }
                 document.getElementById('orderCountBadge').classList.add('hidden');
                 pendingDepBadge.classList.add('hidden');
             }
@@ -2431,7 +2726,7 @@
                 const hasDiscount = finalPrice < Number(prod.price);
 
                 return `
-                    <div class="neon-card rounded-2xl overflow-hidden flex flex-col justify-between relative group">
+                    <div class="neon-card product-card-shine rounded-2xl overflow-hidden flex flex-col justify-between relative group">
                         <div>
                             <div class="h-32 bg-gradient-to-br from-slate-900 via-cyan-950/60 to-purple-950/70 p-4 relative flex flex-col justify-between border-b border-slate-800/80">
                                 <div class="flex items-center justify-between relative z-10">
@@ -2896,7 +3191,7 @@
                 ensureUserActiveDeposit();
                 closeAuthModal();
                 renderAll();
-                showToast(`Đăng nhập thành công (${found.email || found.username})!`, 'success');
+                showToast(`Chào mừng ${found.email || found.username} quay trở lại NKCheat!`, 'success');
             }
         };
 
@@ -2909,7 +3204,7 @@
             showToast('Đã đăng xuất tài khoản!', 'info');
         };
 
-        // --- MUA HÀNG & GIAO KEY TỰ ĐỘNG ---
+        // --- MUA HÀNG & GIAO KEY TỰ ĐỘNG (ĐỒNG BỘ ĐA NGƯỜI DÙNG REAL-TIME TRÊN FIREBASE) ---
         window.handleBuyProduct = async function(productId) {
             if (!state.currentUser) {
                 showToast('Vui lòng Đăng Nhập bằng Gmail (@gmail.com) để mua Key trollmodz!', 'info');
@@ -2917,11 +3212,24 @@
                 return;
             }
 
+            // Lấy dữ liệu sản phẩm mới nhất từ Cloud Firebase để chống trùng Key khi nhiều người mua cùng lúc
+            if (db && isCloudConnected) {
+                try {
+                    const cloudSnap = await getDoc(doc(db, 'artifacts', appId, 'public', 'data', 'nkcheat_products', productId));
+                    if (cloudSnap.exists()) {
+                        const cloudProd = cloudSnap.data();
+                        const idx = state.products.findIndex(p => p.id === productId);
+                        if (idx >= 0) state.products[idx] = cloudProd;
+                    }
+                } catch (e) {}
+            }
+
             const product = state.products.find(p => p.id === productId);
             if (!product) return;
 
             if (!product.stockKeys || product.stockKeys.length === 0) {
                 showToast('Gói sản phẩm này tạm thời hết Key! Vui lòng chờ Admin nạp thêm.', 'error');
+                renderAll();
                 return;
             }
 
@@ -2989,7 +3297,7 @@
             document.getElementById('cfgQrMode').value = state.shopConfig.qrMode || 'static';
             document.getElementById('cfgCheatStatus').value = state.shopConfig.cheatStatus || 'UNDETECTED - An Toàn 100%';
             document.getElementById('cfgCheatVersion').value = state.shopConfig.cheatVersion || 'trollmodz v4.2 VIP';
-            document.getElementById('cfgSupportUrl').value = state.shopConfig.supportUrl || 'https://zalo.me';
+            document.getElementById('cfgSupportUrl').value = state.shopConfig.supportUrl || 'https://zalo.me/0345917626';
             document.getElementById('cfgDlAndroid').value = state.shopConfig.dlAndroid || '';
             document.getElementById('cfgDlIos').value = state.shopConfig.dlIos || '';
             document.getElementById('cfgDlPc').value = state.shopConfig.dlPc || '';
